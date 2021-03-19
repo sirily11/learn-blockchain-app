@@ -1,0 +1,9 @@
+# Decentralization
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/BTC_Logo.svg/220px-BTC_Logo.svg.png)
+
+By storing data across its peer-to-peer network, the blockchain eliminates a number of risks that come with data being held centrally.[1] The decentralized blockchain may use ad hoc message passing and distributed networking.
+
+Peer-to-peer blockchain networks lack centralized points of vulnerability that computer crackers can exploit; likewise, it has no central point of failure. Blockchain security methods include the use of public-key cryptography.[4]:5 A public key (a long, random-looking string of numbers) is an address on the blockchain. Value tokens sent across the network are recorded as belonging to that address. A private key is like a password that gives its owner access to their digital assets or the means to otherwise interact with the various capabilities that blockchains now support. Data stored on the blockchain is generally considered incorruptible.[1]
+
+Every node in a decentralized system has a copy of the blockchain. Data quality is maintained by massive database replication[31] and computational trust. No centralized "official" copy exists and no user is "trusted" more than any other.[4] Transactions are broadcast to the network using software. Messages are delivered on a best-effort basis. Mining nodes validate transactions,[23] add them to the block they are building, and then broadcast the completed block to other nodes.[25]:ch. 08 Blockchains use various time-stamping schemes, such as proof-of-work, to serialize changes.[32] Alternative consensus methods include proof-of-stake.[23] Growth of a decentralized blockchain is accompanied by the risk of centralization because the computer resources required to process larger amounts of data become more expensive.[33]
