@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Learn blockchain is a app which helps people to learn the concept of block chain by building a cryptocurrency.
+Learn blockchain is an app which helps people to learn the concept of block chain by building a cryptocurrency.
 
 It contains follow functinalities:
 
