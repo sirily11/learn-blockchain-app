@@ -58,6 +58,7 @@ flutter:
     - assets/document/part1/
     - assets/quizzes/part1/
     - assets/playground/hash/
+    - assets/logos/part1/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

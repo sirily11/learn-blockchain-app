@@ -7,8 +7,7 @@ const documentDataList = [
     "description": "Basic intro to block chain",
     "playgroundPath": "/hash",
     "quizPath": "assets/quizzes/part1/quiz1.json",
-    "image":
-        "https://blogs.iadb.org/caribbean-dev-trends/wp-content/uploads/sites/34/2017/12/Blockchain1.jpg",
+    "image": "assets/logos/part1/logo1.jpeg",
     "documentData": [
       {
         "path": "assets/document/part1/decentralization.md",
