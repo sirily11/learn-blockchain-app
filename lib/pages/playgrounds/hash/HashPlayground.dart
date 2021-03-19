@@ -4,6 +4,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:learn_blockchain/model/utils.dart';
 import 'package:learn_blockchain/pages/playgrounds/TakeQuizButton.dart';
 import 'package:learn_blockchain/pages/playgrounds/hash/HashCalculator.dart';
+import 'package:learn_blockchain/pages/playgrounds/hash/HashCalculator2.dart';
 
 class HashPlayground extends StatefulWidget {
   final String quizPath;
@@ -66,6 +67,10 @@ class _HashPlaygroundState extends State<HashPlayground> {
                     data: descriptions[1],
                     styleSheet: style,
                   ),
+                  ExampleCard(
+                    child: HashCalculator2(),
+                    title: "Advance Hash Calculator",
+                  )
                 ],
               )
             : null,

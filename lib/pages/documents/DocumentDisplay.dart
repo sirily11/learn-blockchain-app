@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:learn_blockchain/model/DocumentData.dart';
 import 'package:learn_blockchain/model/PageProvider.dart';
 import 'package:learn_blockchain/model/utils.dart';
 import 'package:learn_blockchain/pages/documents/DocumentView.dart';
@@ -40,10 +42,17 @@ class _DocumentDisplayState extends State<DocumentDisplay> {
         scrollPercentage = percentage;
       });
     });
+
+    PageProvider pageProvider = Provider.of(context, listen: false);
+
+    EasyLoading.show();
     Utils.loadMarkdown(widget.documentData.path).then((value) async {
+      pageProvider.title = widget.documentData.title;
       setState(() {
         markdown = value;
       });
+      await Future.delayed(Duration(milliseconds: 500));
+      EasyLoading.dismiss();
     });
   }
 

@@ -2,6 +2,14 @@ import 'package:flutter/material.dart';
 
 class PageProvider with ChangeNotifier {
   PageController pageController = PageController();
+  String _title = "";
+
+  set title(String t) {
+    _title = t;
+    notifyListeners();
+  }
+
+  String get title => _title;
 
   void nextPage() {
     pageController.nextPage(

@@ -27,6 +27,7 @@ dependencies:
   flutter_markdown: ^0.6.0
   path_provider: ^2.0.1
   flutter_easyloading: ^3.0.0
+  carousel_slider: ^3.0.0
   crypto: ^3.0.0
   quiz_system:
     path: plugins/quiz_system

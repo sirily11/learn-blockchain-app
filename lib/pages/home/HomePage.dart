@@ -1,6 +1,11 @@
+import 'dart:math';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:learn_blockchain/data/data.dart';
+import 'package:learn_blockchain/model/DocumentData.dart';
+import 'package:learn_blockchain/model/PageProvider.dart';
 import 'package:learn_blockchain/pages/documents/DocumentView.dart';
-import 'package:learn_blockchain/pages/home/ModuleCard.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,34 +13,105 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Lesson> lessons = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    lessons = documentDataList.map((e) => Lesson.fromJSON(e)).toList();
+  }
+
+  void pushToLesson(Lesson lesson) {
+    PageProvider provider = Provider.of(context, listen: false);
+    provider.title = lesson.title;
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (c) => DocumentView(
+          quizPath: lesson.quizPath,
+          documentData: lesson.documentData,
+          playgroundPath: lesson.playgroundPath,
+          title: lesson.title,
+          description: lesson.description,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Learn BlockChain"),
-        elevation: 0,
-      ),
-      body: ListView(
-        children: [
-          ModuleCard(
-            playgroundPath: "/hash",
-            quizPath: "assets/quizzes/part1/quiz1.json",
-            documentData: [
-              DocumentData(
-                path: "assets/document/part1/decentralization.md",
-                title: "Decentralization",
-              ),
-              DocumentData(
-                path: "assets/document/part1/what_is_block_chain.md",
-                title: "Decentralization",
-              )
-            ],
-            title: "Introduction",
-            description:
-                "In this section, you will learn some basics about block chain tech!",
-          )
-        ],
-      ),
-    );
+        appBar: AppBar(
+          title: Text("Learn BlockChain"),
+          elevation: 0,
+        ),
+        body: Scrollbar(
+          child: ListView.separated(
+            itemCount: lessons.length + 1,
+            separatorBuilder: (c, i) => i > 1 ? Divider() : Container(),
+            itemBuilder: (context, index) {
+              if (index == 0) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: CarouselSlider.builder(
+                    itemCount: min(3, lessons.length),
+                    itemBuilder: (context, index, _) {
+                      var lesson = lessons[index];
+                      return Stack(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              pushToLesson(lesson);
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.network(
+                                lesson.image,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 10,
+                            left: 10,
+                            child: Text(
+                              lesson.title,
+                              style: TextStyle(
+                                color: Colors.white,
+                                shadows: <Shadow>[
+                                  Shadow(
+                                    offset: Offset(1.0, 1.0),
+                                    blurRadius: 1.0,
+                                    color: Colors.black,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      );
+                    },
+                    options: CarouselOptions(
+                      height: 190,
+                      aspectRatio: 2.0,
+                    ),
+                  ),
+                );
+              } else {
+                var lesson = lessons[index - 1];
+                return ListTile(
+                  onTap: () {
+                    pushToLesson(lesson);
+                  },
+                  title: Text(lesson.title),
+                  subtitle: Text(""),
+                  leading: Image.network(lesson.image),
+                );
+              }
+            },
+          ),
+        ));
   }
 }

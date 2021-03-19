@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:learn_blockchain/model/DocumentData.dart';
 import 'package:learn_blockchain/model/PageProvider.dart';
 import 'package:learn_blockchain/pages/documents/DocumentDisplay.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:provider/provider.dart';
-
-class DocumentData {
-  final String path;
-  final String title;
-
-  DocumentData({@required this.path, @required this.title});
-}
 
 class DocumentView extends StatefulWidget {
   final String title;
@@ -31,12 +26,7 @@ class DocumentView extends StatefulWidget {
 }
 
 class _DocumentViewState extends State<DocumentView> {
-  @override
-  void dispose() {
-    PageProvider pageProvider = Provider.of(context, listen: false);
-    pageProvider.clearPage();
-    super.dispose();
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +34,7 @@ class _DocumentViewState extends State<DocumentView> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
+          title: Text(pageProvider.title),
         ),
         body: PageView(
           controller: pageProvider.pageController,
@@ -60,6 +50,7 @@ class _DocumentViewState extends State<DocumentView> {
                       widget.title,
                     ],
                     textStyle: TextStyle(fontSize: 50.0, fontFamily: "Horizon"),
+                    textAlign: TextAlign.center,
                     colors: [
                       Colors.purple,
                       Colors.blue,
