@@ -36,60 +36,72 @@ class _DocumentPageState extends State<DocumentPage> {
       appBar: AppBar(
         title: Text(pageProvider.title),
       ),
-      body: PageView(
+      body: PageView.builder(
         controller: pageProvider.pageController,
         physics: NeverScrollableScrollPhysics(),
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                child: ColorizeAnimatedTextKit(
-                  text: [
-                    widget.lesson.title,
-                  ],
-                  textStyle: TextStyle(fontSize: 50.0, fontFamily: "Horizon"),
-                  textAlign: TextAlign.center,
-                  colors: [
-                    Colors.purple,
-                    Colors.blue,
-                  ],
-                ),
-              ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    widget.lesson.description,
-                    style: TextStyle(fontSize: 16),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              IconButton(
-                iconSize: 50,
-                color: Colors.blue,
-                onPressed: () {
-                  pageProvider.nextPage();
-                },
-                icon: Icon(Icons.arrow_right),
-              ),
+        itemCount: widget.lesson.documentData.length + 1,
+        onPageChanged: (index) {
+          if (index > 0) {
+            pageProvider.title = widget.lesson.documentData[index - 1].title;
+          }
+        },
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return _buildFirstPage(pageProvider);
+          }
+
+          var document = widget.lesson.documentData[index - 1];
+          return DocumentDisplay(
+            playgroundPath: widget.lesson.playgroundPath,
+            quizPath: widget.lesson.quizPath,
+            documentData: document,
+            isFirstPage: index - 1 == 0,
+            isLastPage: index - 1 == widget.lesson.documentData.length - 1,
+            source: document.source,
+            type: document.type,
+          );
+        },
+      ),
+    );
+  }
+
+  Column _buildFirstPage(PageProvider pageProvider) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Center(
+          child: ColorizeAnimatedTextKit(
+            text: [
+              widget.lesson.title,
+            ],
+            textStyle: TextStyle(fontSize: 50.0, fontFamily: "Horizon"),
+            textAlign: TextAlign.center,
+            colors: [
+              Colors.purple,
+              Colors.blue,
             ],
           ),
-          for (var document in widget.lesson.documentData)
-            DocumentDisplay(
-              playgroundPath: widget.lesson.playgroundPath,
-              quizPath: widget.lesson.quizPath,
-              documentData: document,
-              isFirstPage: widget.lesson.documentData.indexOf(document) == 0,
-              isLastPage: widget.lesson.documentData.indexOf(document) ==
-                  widget.lesson.documentData.length - 1,
-              source: document.source,
-              type: document.type,
-            )
-        ],
-      ),
+        ),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              widget.lesson.description,
+              style: TextStyle(fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        IconButton(
+          iconSize: 50,
+          color: Colors.blue,
+          onPressed: () {
+            pageProvider.nextPage();
+          },
+          icon: Icon(Icons.arrow_right),
+        ),
+      ],
     );
   }
 }

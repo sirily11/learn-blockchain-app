@@ -48,8 +48,10 @@ class _DocumentDisplayState extends State<DocumentDisplay> {
   @override
   void initState() {
     super.initState();
+    PageProvider pageProvider = Provider.of(context, listen: false);
     if (widget.type == "md")
       scrollController.addListener(() {
+        // pageProvider.title = widget.documentData.title;
         var percentage = scrollController.position.pixels /
             scrollController.position.maxScrollExtent;
         setState(() {
@@ -57,12 +59,10 @@ class _DocumentDisplayState extends State<DocumentDisplay> {
         });
       });
 
-    PageProvider pageProvider = Provider.of(context, listen: false);
     EasyLoading.show();
 
     if (widget.type == "md") {
       Utils.loadMarkdown(widget.documentData.path).then((value) async {
-        pageProvider.title = widget.documentData.title;
         setState(() {
           markdown = value;
         });
@@ -71,7 +71,6 @@ class _DocumentDisplayState extends State<DocumentDisplay> {
       });
     } else if (widget.type == "pdf") {
       Utils.loadPdfFromNetwork(widget.documentData.path).then((value) async {
-        pageProvider.title = widget.documentData.title;
         if (value != null) {
           setState(() {
             pdfController = value;
