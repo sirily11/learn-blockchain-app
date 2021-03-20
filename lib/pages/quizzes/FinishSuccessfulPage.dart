@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:learn_blockchain/locations/HomeLocation.dart';
 import 'package:learn_blockchain/model/PageProvider.dart';
+import 'package:learn_blockchain/pages/home/HomePage.dart';
 import 'package:provider/provider.dart';
+import 'package:beamer/beamer.dart';
 
 class FinishSuccessfulPage extends StatelessWidget {
+  static const pathBlueprint = "/success";
+  static const valueKey = ValueKey("finishSuccessfulPage");
+
   @override
   Widget build(BuildContext context) {
     PageProvider pageProvider = Provider.of(context);
@@ -50,7 +57,7 @@ class FinishSuccessfulPage extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
+              Navigator.pushReplacementNamed(context, "/");
             },
             child: Text("Back Home"),
           )

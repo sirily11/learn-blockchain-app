@@ -10,7 +10,7 @@ class HashCalculator extends StatefulWidget {
 
 class _HashCalculatorState extends State<HashCalculator> {
   final controller = TextEditingController();
-  String hash;
+  String? hash;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class _HashCalculatorState extends State<HashCalculator> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  var bytes = utf8.encode(controller.text ?? "");
+                  var bytes = utf8.encode(controller.text);
                   var digest = sha256.convert(bytes);
                   setState(() {
                     hash = digest.toString();

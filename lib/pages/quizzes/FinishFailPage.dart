@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:beamer/beamer.dart';
 
 class FinishFailPage extends StatelessWidget {
+  static const pathBlueprint = "/fail";
+  static const valueKey = ValueKey("finishFailPage");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +33,7 @@ class FinishFailPage extends StatelessWidget {
               child: ColorizeAnimatedTextKit(
                 repeatForever: true,
                 onTap: () {
-                  print("Tap Event");
+                  Navigator.pop(context);
                 },
                 text: [
                   "You failed the quiz!",
@@ -43,6 +48,12 @@ class FinishFailPage extends StatelessWidget {
                 textAlign: TextAlign.start,
               ),
             ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text("Retry"),
           )
         ],
       ),

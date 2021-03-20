@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:learn_blockchain/locations/DocumentLocation.dart';
+import 'package:learn_blockchain/locations/PlaygroundLocation.dart';
 import 'package:learn_blockchain/model/DocumentData.dart';
 import 'package:learn_blockchain/model/PageProvider.dart';
 import 'package:learn_blockchain/model/utils.dart';
-import 'package:learn_blockchain/pages/documents/DocumentView.dart';
-import 'package:learn_blockchain/pages/quizzes/DoQuizPage.dart';
+import 'package:learn_blockchain/pages/playgrounds/PlaygroundPage.dart';
 import 'package:provider/provider.dart';
+import 'package:beamer/beamer.dart';
+import 'package:path/path.dart' as p;
+
+import 'DocumentPage.dart';
 
 class DocumentDisplay extends StatefulWidget {
   final DocumentData documentData;
-  final String playgroundPath;
-  final String quizPath;
+  final String? playgroundPath;
+  final String? quizPath;
   final bool isLastPage;
   final bool isFirstPage;
 
   DocumentDisplay({
-    @required this.documentData,
-    @required this.isLastPage,
-    @required this.isFirstPage,
-    @required this.quizPath,
-    @required this.playgroundPath,
+    required this.documentData,
+    required this.isLastPage,
+    required this.isFirstPage,
+    required this.quizPath,
+    required this.playgroundPath,
   });
 
   @override
@@ -29,7 +34,7 @@ class DocumentDisplay extends StatefulWidget {
 
 class _DocumentDisplayState extends State<DocumentDisplay> {
   final ScrollController scrollController = ScrollController();
-  String markdown;
+  String? markdown;
   double scrollPercentage = 0;
 
   @override
@@ -73,7 +78,7 @@ class _DocumentDisplayState extends State<DocumentDisplay> {
                     if (markdown != null)
                       MarkdownBody(
                         selectable: true,
-                        data: markdown,
+                        data: markdown ?? "",
                         styleSheet: MarkdownStyleSheet(
                           p: TextStyle(
                             fontSize: 15,
@@ -137,17 +142,21 @@ class _DocumentDisplayState extends State<DocumentDisplay> {
               ),
             ),
           ),
-        if (widget.isLastPage)
+        if (widget.isLastPage &&
+            widget.quizPath != null &&
+            widget.playgroundPath != null)
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               onPressed: () {
+                // context.beamToNamed(
+                //     "/documents/${Beamer.of(context).currentLocation.pathParameters["documentId"]}/playground");
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (c) => Utils.gotoPlayground(
-                      widget.playgroundPath,
-                      widget.quizPath,
+                    builder: (c) => PlaygroundPage(
+                      quizPath: widget.quizPath!,
+                      playgroundPath: widget.playgroundPath!,
                     ),
                   ),
                 );

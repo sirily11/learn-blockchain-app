@@ -11,7 +11,7 @@ class HashCalculator2 extends StatefulWidget {
 class _HashCalculatorState extends State<HashCalculator2> {
   final controller = TextEditingController();
   String selection = "sha1";
-  String hash;
+  String? hash;
   final selections = [
     "sha1",
     "sha224",
@@ -50,28 +50,28 @@ class _HashCalculatorState extends State<HashCalculator2> {
 
                   switch (selection) {
                     case "sha1":
-                      var bytes = utf8.encode(controller.text ?? "");
+                      var bytes = utf8.encode(controller.text);
                       digest = sha1.convert(bytes);
                       break;
                     case "sha224":
-                      var bytes = utf8.encode(controller.text ?? "");
+                      var bytes = utf8.encode(controller.text);
                       digest = sha224.convert(bytes);
                       break;
                     case "sha256":
-                      var bytes = utf8.encode(controller.text ?? "");
+                      var bytes = utf8.encode(controller.text);
                       digest = sha256.convert(bytes);
                       break;
                     case "sha384":
-                      var bytes = utf8.encode(controller.text ?? "");
+                      var bytes = utf8.encode(controller.text);
                       digest = sha384.convert(bytes);
                       break;
                     case "sha512":
-                      var bytes = utf8.encode(controller.text ?? "");
+                      var bytes = utf8.encode(controller.text);
                       digest = sha512.convert(bytes);
                       break;
 
                     default:
-                      var bytes = utf8.encode(controller.text ?? "");
+                      var bytes = utf8.encode(controller.text);
                       digest = sha256.convert(bytes);
                   }
 

@@ -12,6 +12,7 @@ dependencies:
   provider: ^5.0.0
   flutter_markdown: ^0.6.0
   animated_text_kit: ^3.1.2
+  beamer: ^0.9.3
 
 dev_dependencies:
   flutter_test:

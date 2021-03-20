@@ -1,13 +1,21 @@
 import 'dart:math';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_blockchain/data/data.dart';
+import 'package:learn_blockchain/locations/DocumentLocation.dart';
 import 'package:learn_blockchain/model/DocumentData.dart';
 import 'package:learn_blockchain/model/PageProvider.dart';
-import 'package:learn_blockchain/pages/documents/DocumentView.dart';
+import 'package:beamer/beamer.dart';
+import 'package:learn_blockchain/pages/documents/DocumentPage.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
+  static const valueKey = ValueKey("home");
+  static const pathBlueprint = "/";
+
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -22,22 +30,11 @@ class _HomePageState extends State<HomePage> {
     lessons = documentDataList.map((e) => Lesson.fromJSON(e)).toList();
   }
 
-  void pushToLesson(Lesson lesson) {
+  void pushToLesson(Lesson lesson, int index) {
     PageProvider provider = Provider.of(context, listen: false);
     provider.title = lesson.title;
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (c) => DocumentView(
-          quizPath: lesson.quizPath,
-          documentData: lesson.documentData,
-          playgroundPath: lesson.playgroundPath,
-          title: lesson.title,
-          description: lesson.description,
-        ),
-      ),
-    );
+    Navigator.push(context,
+        MaterialPageRoute(builder: (c) => DocumentPage(lesson: lesson)));
   }
 
   @override
@@ -50,7 +47,7 @@ class _HomePageState extends State<HomePage> {
         body: Scrollbar(
           child: ListView.separated(
             itemCount: lessons.length + 1,
-            separatorBuilder: (c, i) => i > 1 ? Divider() : Container(),
+            separatorBuilder: (c, i) => i > 0 ? Divider() : Container(),
             itemBuilder: (context, index) {
               if (index == 0) {
                 return Padding(
@@ -63,13 +60,14 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           InkWell(
                             onTap: () {
-                              pushToLesson(lesson);
+                              pushToLesson(lesson, index);
                             },
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: Image.asset(
                                 lesson.image,
                                 fit: BoxFit.cover,
+                                width: MediaQuery.of(context).size.width * 0.77,
                               ),
                             ),
                           ),
@@ -95,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                     },
                     options: CarouselOptions(
                       height: 190,
-                      aspectRatio: 2.0,
+                      aspectRatio: 3.0,
                     ),
                   ),
                 );
@@ -103,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                 var lesson = lessons[index - 1];
                 return ListTile(
                   onTap: () {
-                    pushToLesson(lesson);
+                    pushToLesson(lesson, index - 1);
                   },
                   title: Text(lesson.title),
                   subtitle: Text(""),

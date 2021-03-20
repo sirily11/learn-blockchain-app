@@ -1,11 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:learn_blockchain/pages/documents/DocumentDisplay.dart';
-
 class DocumentData {
   final String path;
   final String title;
 
-  DocumentData({@required this.path, @required this.title});
+  DocumentData({required this.path, required this.title});
 
   factory DocumentData.fromJSON(Map<String, dynamic> json) =>
       DocumentData(path: json['path'], title: json['title']);
@@ -15,17 +12,17 @@ class Lesson {
   final String title;
   final String description;
   final String image;
-  final String playgroundPath;
-  final String quizPath;
+  final String? playgroundPath;
+  final String? quizPath;
   final List<DocumentData> documentData;
 
   Lesson({
-    @required this.title,
-    @required this.description,
-    @required this.image,
-    @required this.documentData,
-    @required this.playgroundPath,
-    @required this.quizPath,
+    required this.title,
+    required this.description,
+    required this.image,
+    required this.documentData,
+    this.playgroundPath,
+    this.quizPath,
   });
 
   factory Lesson.fromJSON(Map<String, dynamic> json) => Lesson(
