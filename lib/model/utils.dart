@@ -1,8 +1,13 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:path/path.dart' as p;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:learn_blockchain/pages/playgrounds/hash/HashPlayground.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as p;
 
 class Utils {
   static Future<String> loadMarkdown(String path) async {
@@ -13,6 +18,21 @@ class Utils {
     var string = await rootBundle.loadString(path);
 
     return JsonDecoder().convert(string);
+  }
+
+  static Future<PdfController?> loadPdfFromNetwork(String path) async {
+    try {
+      var dio = Dio();
+      final tmpPath = await getApplicationDocumentsDirectory();
+      final savePath = p.join(tmpPath.toString(), p.basename(path));
+      if (!await File(savePath).exists()) {
+        await dio.download(path, savePath);
+      }
+
+      return PdfController(document: PdfDocument.openFile(savePath));
+    } catch (err) {
+      print(err);
+    }
   }
 }
 

@@ -1,11 +1,23 @@
 class DocumentData {
+  /// Internet or assets
+  final String source;
+
+  /// pdf or md
+  final String type;
   final String path;
   final String title;
 
-  DocumentData({required this.path, required this.title});
+  DocumentData(
+      {required this.path,
+      required this.title,
+      required this.source,
+      required this.type});
 
-  factory DocumentData.fromJSON(Map<String, dynamic> json) =>
-      DocumentData(path: json['path'], title: json['title']);
+  factory DocumentData.fromJSON(Map<String, dynamic> json) => DocumentData(
+      path: json['path'],
+      title: json['title'],
+      type: json['type'],
+      source: json['source']);
 }
 
 class Lesson {

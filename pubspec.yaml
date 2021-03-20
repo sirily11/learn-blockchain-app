@@ -29,7 +29,9 @@ dependencies:
   flutter_easyloading: ^3.0.0
   carousel_slider: ^3.0.0
   crypto: ^3.0.0
+  native_pdf_view: any
   beamer: ^0.9.3
+  dio: any
   path: ^1.8.0
   quiz_system:
     path: plugins/quiz_system
@@ -61,6 +63,7 @@ flutter:
     - assets/quizzes/part1/
     - assets/playground/hash/
     - assets/logos/part1/
+    - assets/logos/part2/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:learn_blockchain/data/data.dart';
 import 'package:learn_blockchain/model/DocumentData.dart';
 import 'package:learn_blockchain/model/PageProvider.dart';
 import 'package:learn_blockchain/pages/documents/DocumentDisplay.dart';
@@ -20,6 +22,12 @@ class DocumentPage extends StatefulWidget {
 }
 
 class _DocumentPageState extends State<DocumentPage> {
+  @override
+  void dispose() {
+    EasyLoading.dismiss();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     PageProvider pageProvider = Provider.of(context);
@@ -77,6 +85,8 @@ class _DocumentPageState extends State<DocumentPage> {
               isFirstPage: widget.lesson.documentData.indexOf(document) == 0,
               isLastPage: widget.lesson.documentData.indexOf(document) ==
                   widget.lesson.documentData.length - 1,
+              source: document.source,
+              type: document.type,
             )
         ],
       ),
