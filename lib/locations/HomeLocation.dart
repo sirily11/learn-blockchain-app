@@ -1,5 +1,6 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:beamer/beamer.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 import 'package:learn_blockchain/pages/home/HomePage.dart';
 
 class HomeLocation extends BeamLocation {

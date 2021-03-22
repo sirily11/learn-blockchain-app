@@ -1,15 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:learn_blockchain/locations/DocumentLocation.dart';
 import 'package:learn_blockchain/model/utils.dart';
-import 'package:learn_blockchain/pages/documents/DocumentPage.dart';
-import 'package:learn_blockchain/pages/home/HomePage.dart';
-import 'package:learn_blockchain/pages/playgrounds/PlaygroundPage.dart';
-import 'package:learn_blockchain/pages/quizzes/FinishFailPage.dart';
-import 'package:learn_blockchain/pages/quizzes/FinishSuccessfulPage.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:quiz_system/quiz/pages/QuizPage.dart';
-import 'package:beamer/beamer.dart';
-import 'package:path/path.dart' as p;
 
 class DoQuizPage extends StatefulWidget {
   static const pathBlueprint = "/quiz";
@@ -25,8 +17,6 @@ class DoQuizPage extends StatefulWidget {
 
 class _DoQuizPageState extends State<DoQuizPage> {
   List<dynamic>? json;
-  bool _showSuccess = false;
-  bool _showFail = false;
 
   @override
   void initState() {

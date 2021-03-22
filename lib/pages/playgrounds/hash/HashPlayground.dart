@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:learn_blockchain/model/utils.dart';
-import 'package:learn_blockchain/pages/playgrounds/TakeQuizButton.dart';
 import 'package:learn_blockchain/pages/playgrounds/hash/HashCalculator.dart';
 import 'package:learn_blockchain/pages/playgrounds/hash/HashCalculator2.dart';
 

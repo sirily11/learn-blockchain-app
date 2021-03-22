@@ -3,11 +3,11 @@ import 'dart:math';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_blockchain/data/data.dart';
-import 'package:learn_blockchain/locations/DocumentLocation.dart';
 import 'package:learn_blockchain/model/DocumentData.dart';
 import 'package:learn_blockchain/model/PageProvider.dart';
-import 'package:beamer/beamer.dart';
 import 'package:learn_blockchain/pages/documents/DocumentPage.dart';
+import 'package:learn_blockchain/pages/settings/SettingsView.dart';
+import 'package:learn_blockchain/pages/story/AddStoryPage.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,6 +22,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Lesson> lessons = [];
+  int _crrentIndex = 0;
 
   @override
   void initState() {
@@ -40,11 +41,66 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+      appBar: _buildAppbar(),
+      body: _buildBody(),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _crrentIndex,
+        onTap: (number) {
+          setState(() {
+            _crrentIndex = number;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: "Story"),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings")
+        ],
+      ),
+    );
+  }
+
+  AppBar _buildAppbar() {
+    switch (_crrentIndex) {
+      case 1:
+        return AppBar(
+          title: Text("Story"),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.edit),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (c) => AddStoryPage(),
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+
+      case 2:
+        return AppBar(
+          title: Text("Settings"),
+        );
+      default:
+        return AppBar(
           title: Text("Learn BlockChain"),
           elevation: 0,
-        ),
-        body: Scrollbar(
+        );
+    }
+  }
+
+  Widget _buildBody() {
+    switch (_crrentIndex) {
+      case 1:
+        return Text("Story Page");
+
+      case 2:
+        return SettingsView();
+
+      default:
+        return Scrollbar(
           child: ListView.separated(
             itemCount: lessons.length + 1,
             separatorBuilder: (c, i) => i > 0 ? Divider() : Container(),
@@ -110,6 +166,7 @@ class _HomePageState extends State<HomePage> {
               }
             },
           ),
-        ));
+        );
+    }
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:beamer/beamer.dart';
 
 class FinishFailPage extends StatelessWidget {
   static const pathBlueprint = "/fail";

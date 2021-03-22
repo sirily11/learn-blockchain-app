@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:learn_blockchain/model/utils.dart';
 import 'package:learn_blockchain/pages/playgrounds/TakeQuizButton.dart';
-import 'package:path/path.dart' as p;
 
 class PlaygroundPage extends StatefulWidget {
   static const valueKey = ValueKey("playground");

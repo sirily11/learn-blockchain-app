@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:learn_blockchain/model/PageProvider.dart';
+import 'package:learn_blockchain/model/StoryProvider.dart';
+import 'package:learn_blockchain/model/UserProvider.dart';
 import 'package:learn_blockchain/pages/home/HomePage.dart';
 import 'package:learn_blockchain/pages/quizzes/FinishFailPage.dart';
 import 'package:learn_blockchain/pages/quizzes/FinishSuccessfulPage.dart';
@@ -18,7 +20,13 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (c) => PageProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (c) => StoryProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (c) => UserProvider(),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

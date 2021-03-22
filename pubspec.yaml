@@ -29,9 +29,15 @@ dependencies:
   flutter_easyloading: ^3.0.0
   carousel_slider: ^3.0.0
   crypto: ^3.0.0
-  native_pdf_view: any
+  native_pdf_view: ^4.0.1
+  flutter_quill: 
+    git: https://github.com/singerdmx/flutter-quill
+  sembast: ^3.0.0+4
   beamer: ^0.9.3
-  dio: any
+  shared_preferences: ^2.0.5
+  dio: 4.0.0-prev3
+  web3dart: 
+    git: https://github.com/simolus3/web3dart
   path: ^1.8.0
   quiz_system:
     path: plugins/quiz_system
@@ -58,7 +64,6 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-
     - assets/document/part1/
     - assets/quizzes/part1/
     - assets/playground/hash/

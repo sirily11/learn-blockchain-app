@@ -1,5 +1,6 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:beamer/beamer.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 import 'package:learn_blockchain/data/data.dart';
 import 'package:learn_blockchain/locations/HomeLocation.dart';
 import 'package:learn_blockchain/model/DocumentData.dart';
@@ -8,7 +9,6 @@ import 'package:learn_blockchain/pages/playgrounds/PlaygroundPage.dart';
 import 'package:learn_blockchain/pages/quizzes/DoQuizPage.dart';
 import 'package:learn_blockchain/pages/quizzes/FinishFailPage.dart';
 import 'package:learn_blockchain/pages/quizzes/FinishSuccessfulPage.dart';
-import 'package:path/path.dart' as p;
 
 class DocumentLocation extends BeamLocation {
   DocumentLocation(

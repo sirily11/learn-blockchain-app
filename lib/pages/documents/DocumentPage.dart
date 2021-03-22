@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:learn_blockchain/data/data.dart';
 import 'package:learn_blockchain/model/DocumentData.dart';
 import 'package:learn_blockchain/model/PageProvider.dart';
 import 'package:learn_blockchain/pages/documents/DocumentDisplay.dart';

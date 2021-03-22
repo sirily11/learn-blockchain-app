@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:learn_blockchain/locations/DocumentLocation.dart';
-import 'package:learn_blockchain/locations/PlaygroundLocation.dart';
 import 'package:learn_blockchain/model/DocumentData.dart';
 import 'package:learn_blockchain/model/PageProvider.dart';
 import 'package:learn_blockchain/model/utils.dart';
@@ -11,10 +9,6 @@ import 'package:learn_blockchain/pages/playgrounds/PlaygroundPage.dart';
 import 'package:learn_blockchain/pages/quizzes/DoQuizPage.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:provider/provider.dart';
-import 'package:beamer/beamer.dart';
-import 'package:path/path.dart' as p;
-
-import 'DocumentPage.dart';
 
 class DocumentDisplay extends StatefulWidget {
   final DocumentData documentData;
@@ -48,7 +42,7 @@ class _DocumentDisplayState extends State<DocumentDisplay> {
   @override
   void initState() {
     super.initState();
-    PageProvider pageProvider = Provider.of(context, listen: false);
+    // PageProvider pageProvider = Provider.of(context, listen: false);
     if (widget.type == "md")
       scrollController.addListener(() {
         // pageProvider.title = widget.documentData.title;
