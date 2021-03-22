@@ -38,9 +38,7 @@ class FinishSuccessfulPage extends StatelessWidget {
                 onTap: () {
                   print("Tap Event");
                 },
-                text: [
-                  "You passed the quiz!",
-                ],
+                text: ["You passed the quiz!", "20 LBCC rewared"],
                 textStyle: TextStyle(fontSize: 20.0, fontFamily: "Horizon"),
                 colors: [
                   Colors.purple,

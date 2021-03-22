@@ -9,6 +9,7 @@ import 'package:learn_blockchain/model/abi.dart';
 import 'package:learn_blockchain/model/database/Database.dart';
 import 'package:learn_blockchain/model/database/DatabasePreferenceProvider.dart';
 import 'package:learn_blockchain/model/secrets.dart';
+import 'package:learn_blockchain/pages/settings/AccountAddressDialog.dart';
 import 'package:web3dart/web3dart.dart';
 
 class UserProvider with ChangeNotifier {
@@ -28,46 +29,66 @@ class UserProvider with ChangeNotifier {
     );
   }
 
-  Future<String> getAccount() async {
-    return await database.readFromDB("key");
+  Future<AddressData> getAccount() async {
+    return AddressData(
+      address: await database.readFromDB("key"),
+      privateKey: await database.readFromDB("privateKey"),
+    );
   }
 
   Future<void> addAccount(String account) async {
     await database.writeToDB("key", account);
   }
 
-  Future<void> updateAccount(String account) async {
+  Future<void> updateAccount(String account, String privateKey) async {
     await database.updateDB("key", account);
+    await database.updateDB("privateKey", privateKey);
   }
 
-  Future<double> getAccountBalence(String? account) async {
+  Future<double> getAccountBalence(String? privateKey) async {
     await EasyLoading.show();
-    if (account != null) {
+    if (privateKey != null) {
       try {
-        var address = EthereumAddress.fromHex(account);
+        var address = await web3client?.credentialsFromPrivateKey(privateKey);
 
         final balanceFunction = contract?.function('balanceOf');
 
-        final balance = await web3client?.call(
-            contract: contract, function: balanceFunction, params: [address]);
+        final balance = await web3client
+            ?.call(contract: contract, function: balanceFunction, params: [
+          await address?.extractAddress(),
+        ]);
         await EasyLoading.dismiss();
         return (balance?[0] as BigInt).toDouble();
       } catch (err) {
-        await EasyLoading.showError("Cannot fetch balence",
-            duration: Duration(seconds: 2));
+        await EasyLoading.showError(
+          "Cannot fetch balence. $err",
+        );
+        await Future.delayed(Duration(seconds: 2));
         await EasyLoading.dismiss();
       }
     }
     return 0;
   }
 
-  Future<void> mint(String account, int amout) async {
+  Future<void> mint(String privateKey, int amout) async {
     try {
       await EasyLoading.show();
-      final address = EthereumAddress.fromHex(account);
-      final mintFunction = contract?.function("mint");
-      await web3client?.call(
-          contract: contract, function: mintFunction, params: [address, amout]);
+      var cred = await web3client?.credentialsFromPrivateKey(
+        privateKey,
+      );
+      final mintFunction = contract?.function("reward");
+      var signedTx = await web3client?.signTransaction(
+        cred,
+        Transaction.callContract(
+          contract: contract,
+          function: mintFunction,
+          parameters: [BigInt.from(amout)],
+          gasPrice: EtherAmount.inWei(BigInt.one),
+          maxGas: 3000000,
+        ),
+      );
+
+      await web3client?.sendRawTransaction(signedTx);
     } catch (err) {
       await EasyLoading.showError("Cannot mint coin");
     } finally {
@@ -75,22 +96,35 @@ class UserProvider with ChangeNotifier {
     }
   }
 
-  Future<void> addStory(String account, String story) async {
+  Future<bool> addStory(String account, String privateKey, String story) async {
     try {
       await EasyLoading.show();
-      final address = EthereumAddress.fromHex(account);
-      final addStoryFunction = contract?.function("mint");
-      await web3client?.call(
-        contract: contract,
-        function: addStoryFunction,
-        params: [story],
-        sender: address,
+      final addStoryFunction = contract?.function("addStory");
+      var cred = await web3client?.credentialsFromPrivateKey(
+        privateKey,
+      );
+      var signedTx = await web3client?.signTransaction(
+        cred,
+        Transaction.callContract(
+          contract: contract,
+          function: addStoryFunction,
+          parameters: [story],
+          gasPrice: EtherAmount.inWei(BigInt.one),
+          maxGas: 3000000,
+        ),
       );
 
+      await web3client?.sendRawTransaction(signedTx);
       await EasyLoading.dismiss();
+      return true;
     } catch (err) {
-      await EasyLoading.showError("Cannot add story. $err");
+      print(err);
+      await EasyLoading.showError(
+        "$err",
+      );
+      await Future.delayed(Duration(seconds: 2));
       await EasyLoading.dismiss();
+      return false;
     }
   }
 
@@ -102,13 +136,19 @@ class UserProvider with ChangeNotifier {
       final s = await web3client?.call(
         contract: contract,
         function: getStoryFunction,
-        params: [start, end],
+        params: [
+          BigInt.from(start),
+          BigInt.from(end),
+        ],
       );
 
       await EasyLoading.dismiss();
-      return (s as List).map((e) => Story.fromJson(e)).toList();
+      List<dynamic> result =
+          (s?[0]).map((e) => Story.fromJson(JsonDecoder().convert(e))).toList();
+      return result.map((e) => e as Story).toList();
     } catch (err) {
-      await EasyLoading.showError("Cannot add story. $err");
+      await EasyLoading.showError("Cannot get story. $err");
+      await Future.delayed(Duration(seconds: 2));
       await EasyLoading.dismiss();
     }
   }
@@ -117,7 +157,7 @@ class UserProvider with ChangeNotifier {
     try {
       await EasyLoading.show();
 
-      final getStoryFunction = contract?.function("getStoryInRange");
+      final getStoryFunction = contract?.function("getStorySize");
       final s = await web3client?.call(
         contract: contract,
         function: getStoryFunction,
@@ -127,7 +167,8 @@ class UserProvider with ChangeNotifier {
       await EasyLoading.dismiss();
       return (s?[0] as BigInt).toInt();
     } catch (err) {
-      await EasyLoading.showError("Cannot add story. $err");
+      await EasyLoading.showError("Cannot get story size. $err");
+      await Future.delayed(Duration(seconds: 2));
       await EasyLoading.dismiss();
     }
   }

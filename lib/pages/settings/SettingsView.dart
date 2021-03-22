@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:learn_blockchain/model/UserProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -13,66 +14,75 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
-  TextEditingController textEditingController = TextEditingController();
   String? account;
+  String? privateKey;
   double balence = 0;
 
   @override
   void initState() {
+    super.initState();
+    fetch();
+  }
+
+  fetch() async {
     UserProvider provider = Provider.of(context, listen: false);
     EasyLoading.show();
     provider.getAccount().then((value) async {
       setState(() {
-        account = value;
+        account = value.address;
+        privateKey = value.privateKey;
       });
-      textEditingController.text = value;
-      var balence = await provider.getAccountBalence(account);
+      var balence = await provider.getAccountBalence(value.privateKey);
       setState(() {
         this.balence = balence;
       });
     });
-
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     UserProvider provider = Provider.of(context);
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(children: [
-        ListTile(
-          onTap: () async {
-            var newAddress = await showDialog<String?>(
-              context: context,
-              builder: (c) => AccountAddressDialog(
-                address: account ?? "",
-              ),
-            );
+    return EasyRefresh(
+      onRefresh: () => fetch(),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(children: [
+          ListTile(
+            onTap: () async {
+              var newAddress = await showDialog<AddressData?>(
+                context: context,
+                builder: (c) => AccountAddressDialog(
+                  address: account ?? "",
+                  privateAddress: privateKey ?? "",
+                ),
+              );
 
-            if (newAddress != null) {
-              await provider.updateAccount(newAddress);
-              setState(() {
-                account = newAddress;
-              });
-            }
-          },
-          title: Text("Account Info"),
-          subtitle: Text(
-            "${account ?? "null"}",
-            overflow: TextOverflow.ellipsis,
+              if (newAddress != null) {
+                await provider.updateAccount(
+                    newAddress.address!, newAddress.privateKey!);
+                setState(() {
+                  account = newAddress.address;
+                  privateKey = newAddress.privateKey;
+                });
+              }
+            },
+            title: Text("Account Info"),
+            subtitle: Text(
+              "${account ?? "null"}",
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-        ),
-        Divider(),
-        Tooltip(
-          message: "Learn Blockchain Coin Balance",
-          child: ListTile(
-            title: Text("Your balance"),
-            subtitle: Text("$balence"),
-            trailing: Text("LBCC"),
+          Divider(),
+          Tooltip(
+            message: "Learn Blockchain Coin Balance",
+            child: ListTile(
+              title: Text("Your balance"),
+              subtitle: Text("$balence"),
+              trailing: Text("LBCC"),
+            ),
           ),
-        )
-      ]),
+        ]),
+      ),
     );
   }
 }

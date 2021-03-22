@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:learn_blockchain/model/UserProvider.dart';
 import 'package:learn_blockchain/model/utils.dart';
+import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:quiz_system/quiz/pages/QuizPage.dart';
 
@@ -48,8 +50,15 @@ class _DoQuizPageState extends State<DoQuizPage> {
       body: json != null
           ? QuizPage(
               json: json,
-              onEnd: (n, t) {
+              onEnd: (n, t) async {
                 if ((n / t) > 0.7) {
+                  UserProvider userProvider =
+                      Provider.of(context, listen: false);
+                  var account = await userProvider.getAccount();
+                  if (account.privateKey != null) {
+                    userProvider.mint(account.privateKey!, 20);
+                  }
+
                   Navigator.pushNamedAndRemoveUntil(
                       context, "/success", (route) => false);
                 } else {

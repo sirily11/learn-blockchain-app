@@ -8,6 +8,7 @@ import 'package:learn_blockchain/model/PageProvider.dart';
 import 'package:learn_blockchain/pages/documents/DocumentPage.dart';
 import 'package:learn_blockchain/pages/settings/SettingsView.dart';
 import 'package:learn_blockchain/pages/story/AddStoryPage.dart';
+import 'package:learn_blockchain/pages/story/StoryView.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -94,7 +95,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildBody() {
     switch (_crrentIndex) {
       case 1:
-        return Text("Story Page");
+        return StoryView();
 
       case 2:
         return SettingsView();

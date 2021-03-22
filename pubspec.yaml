@@ -35,6 +35,7 @@ dependencies:
   sembast: ^3.0.0+4
   beamer: ^0.9.3
   shared_preferences: ^2.0.5
+  flutter_easyrefresh: ^2.1.8
   dio: 4.0.0-prev3
   web3dart: 
     git: https://github.com/simolus3/web3dart
