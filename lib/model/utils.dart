@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:dio/dio.dart';
+import 'package:learn_blockchain/pages/playgrounds/difficulty/DifficultyPlayground.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:path/path.dart' as p;
 import 'package:flutter/material.dart';
@@ -42,6 +43,9 @@ class PlaygroundUtils {
       case "/hash":
         return "Hash Playground";
 
+      case "/difficulty":
+        return "Difficulty Playground";
+
       default:
         return "No path";
     }
@@ -52,6 +56,8 @@ class PlaygroundUtils {
     switch (playgroundPath) {
       case "/hash":
         return HashPlayground(descriptions: descriptions);
+      case "/difficulty":
+        return DifficultyPlayground(descriptions: descriptions);
 
       default:
         return Text("Invaild playground path");
@@ -63,6 +69,9 @@ class PlaygroundUtils {
       case "/hash":
         return 2;
 
+      case "/difficulty":
+        return 3;
+
       default:
         return 0;
     }
@@ -72,7 +81,8 @@ class PlaygroundUtils {
     switch (playgroundPath) {
       case "/hash":
         return "assets/playground/hash";
-
+      case "/difficulty":
+        return "assets/playground/difficulty";
       default:
         return "";
     }

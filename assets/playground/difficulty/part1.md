@@ -1,0 +1,1 @@
+If we have a black box which can provide some random hash results. Our purpose is let this random hash generator generate a hash result which contains 2 leading 0. If the result meet the requirement, then we say that this program mined a coin. The following example shows a random hash generator. Try it to see how much time you need to get a result with 2 leading zeros.

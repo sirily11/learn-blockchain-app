@@ -162,7 +162,11 @@ class _HomePageState extends State<HomePage> {
                   },
                   title: Text(lesson.title),
                   subtitle: Text(""),
-                  leading: Image.asset(lesson.image),
+                  leading: Image.asset(
+                    lesson.image,
+                    width: 100,
+                    fit: BoxFit.cover,
+                  ),
                 );
               }
             },

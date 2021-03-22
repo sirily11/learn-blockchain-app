@@ -70,6 +70,11 @@ flutter:
     - assets/playground/hash/
     - assets/logos/part1/
     - assets/logos/part2/
+    - assets/logos/part3/
+    - assets/logos/part4/
+    - assets/logos/part5/
+    - assets/playground/difficulty/
+    - assets/document/part2/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
