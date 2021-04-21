@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learn_blockchain/model/UserProvider.dart';
+import 'package:learn_blockchain/model/StoryProvider.dart';
 import 'package:learn_blockchain/model/utils.dart';
 import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -52,7 +52,7 @@ class _DoQuizPageState extends State<DoQuizPage> {
               json: json,
               onEnd: (n, t) async {
                 if ((n / t) > 0.7) {
-                  UserProvider userProvider =
+                  StoryProvider userProvider =
                       Provider.of(context, listen: false);
                   var account = await userProvider.getAccount();
                   if (account.privateKey != null) {

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:learn_blockchain/data/story.dart';
-import 'package:learn_blockchain/model/UserProvider.dart';
+import 'package:learn_blockchain/model/StoryProvider.dart';
+import 'package:learn_blockchain/pages/story/StoryCard.dart';
 import 'package:provider/provider.dart';
 
 class StoryView extends StatefulWidget {
@@ -10,13 +11,21 @@ class StoryView extends StatefulWidget {
 }
 
 class _StoryViewState extends State<StoryView> {
-  List<Story> stories = [];
+  List<Story> stories = [
+    Story(
+      images: [],
+      content: "",
+      type: "miniapp",
+      time: DateTime.now(),
+      title: "MiniApp",
+    )
+  ];
   int totalSize = 0;
   int start = 0;
   int perPage = 10;
 
   getStories(bool refresh) async {
-    UserProvider userProvider = Provider.of(context, listen: false);
+    StoryProvider userProvider = Provider.of(context, listen: false);
     var size = await userProvider.getStorySize();
     var stories = await userProvider.getStories(start, start + perPage);
     if (stories != null && size != null) {
@@ -41,7 +50,7 @@ class _StoryViewState extends State<StoryView> {
       firstRefresh: true,
       onRefresh: () async {
         start = 0;
-        await getStories(true);
+        // await getStories(true);
       },
       onLoad: start + perPage < totalSize
           ? () async {
@@ -50,29 +59,12 @@ class _StoryViewState extends State<StoryView> {
             }
           : null,
       child: ListView.separated(
-        separatorBuilder: (c, i) => Divider(),
+        separatorBuilder: (c, i) => Container(),
         itemCount: stories.length,
         itemBuilder: (c, index) {
           var story = stories[index];
-          return ExpansionTile(
-            title: Text("${story.title}"),
-            subtitle: Text("${story.time}"),
-            expandedAlignment: Alignment.topLeft,
-            expandedCrossAxisAlignment: CrossAxisAlignment.start,
-            childrenPadding: EdgeInsets.all(10),
-            children: [
-              Text(
-                "Content:",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                "${story.content}",
-                textAlign: TextAlign.start,
-              ),
-            ],
+          return StoryCard(
+            story: story,
           );
         },
       ),

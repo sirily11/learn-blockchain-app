@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:dio/dio.dart';
+import 'package:learn_blockchain/data/story.dart';
 import 'package:learn_blockchain/pages/playgrounds/difficulty/DifficultyPlayground.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:path/path.dart' as p;
@@ -99,5 +100,22 @@ class PlaygroundUtils {
     }
 
     return desc;
+  }
+}
+
+class StoryUtils {
+  static Future<String> imageToBase64(File file) async {
+    final bytes = await file.readAsBytes();
+    String img64 = base64Encode(bytes);
+    return img64;
+  }
+
+  static Future<List<String>> imagesToBase64(List<File> files) async {
+    List<String> results = [];
+    for (var file in files) {
+      var result = await StoryUtils.imageToBase64(file);
+      results.add(result);
+    }
+    return results;
   }
 }

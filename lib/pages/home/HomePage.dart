@@ -64,6 +64,7 @@ class _HomePageState extends State<HomePage> {
     switch (_crrentIndex) {
       case 1:
         return AppBar(
+          elevation: 0,
           title: Text("Story"),
           actions: [
             IconButton(
@@ -83,6 +84,7 @@ class _HomePageState extends State<HomePage> {
       case 2:
         return AppBar(
           title: Text("Settings"),
+          elevation: 0,
         );
       default:
         return AppBar(

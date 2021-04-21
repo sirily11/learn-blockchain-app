@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:learn_blockchain/model/PageProvider.dart';
+import 'package:learn_blockchain/model/StoryMiniAppProvider.dart';
 import 'package:learn_blockchain/model/StoryProvider.dart';
-import 'package:learn_blockchain/model/UserProvider.dart';
 import 'package:learn_blockchain/pages/home/HomePage.dart';
 import 'package:learn_blockchain/pages/quizzes/FinishFailPage.dart';
 import 'package:learn_blockchain/pages/quizzes/FinishSuccessfulPage.dart';
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           create: (c) => StoryProvider(),
         ),
         ChangeNotifierProvider(
-          create: (c) => UserProvider(),
+          create: (c) => StoryProvider(),
         ),
       ],
       child: MaterialApp(
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         },
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.blueGrey,
         ),
         initialRoute: "/",
         builder: EasyLoading.init(),

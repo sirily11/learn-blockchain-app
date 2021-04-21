@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:learn_blockchain/model/UserProvider.dart';
+import 'package:learn_blockchain/model/StoryProvider.dart';
 import 'package:provider/provider.dart';
 
 import 'AccountAddressDialog.dart';
@@ -25,7 +25,7 @@ class _SettingsViewState extends State<SettingsView> {
   }
 
   fetch() async {
-    UserProvider provider = Provider.of(context, listen: false);
+    StoryProvider provider = Provider.of(context, listen: false);
     EasyLoading.show();
     provider.getAccount().then((value) async {
       setState(() {
@@ -41,7 +41,7 @@ class _SettingsViewState extends State<SettingsView> {
 
   @override
   Widget build(BuildContext context) {
-    UserProvider provider = Provider.of(context);
+    StoryProvider provider = Provider.of(context);
     return EasyRefresh(
       onRefresh: () => fetch(),
       child: Padding(
