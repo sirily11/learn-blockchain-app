@@ -38,6 +38,7 @@ dependencies:
   flutter_easyrefresh: ^2.1.8
   file_picker_cross: ^4.3.2
   webview_flutter: ^2.0.4
+  local_auth: ^1.1.5
   dio: 4.0.0-prev3
   web3dart: 
     git: https://github.com/simolus3/web3dart

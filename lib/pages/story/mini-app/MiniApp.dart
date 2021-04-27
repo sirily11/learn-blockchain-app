@@ -20,5 +20,5 @@ class _MiniAppState extends State<MiniApp> {
       ),
       body: WebView(),
     );
-  }
+  } 
 }
