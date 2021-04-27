@@ -67,6 +67,7 @@ class StoryProvider with ChangeNotifier {
         await EasyLoading.dismiss();
       }
     }
+    EasyLoading.dismiss();
     return 0;
   }
 
@@ -110,7 +111,7 @@ class StoryProvider with ChangeNotifier {
           function: addStoryFunction,
           parameters: [story],
           gasPrice: EtherAmount.inWei(BigInt.two),
-          maxGas: 30000000,
+          maxGas: 3000000,
         ),
       );
 

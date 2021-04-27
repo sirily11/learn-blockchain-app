@@ -12,17 +12,17 @@ class StoryView extends StatefulWidget {
 
 class _StoryViewState extends State<StoryView> {
   List<Story> stories = [
-    Story(
-      images: [],
-      content: "",
-      type: "miniapp",
-      time: DateTime.now(),
-      title: "MiniApp",
-    )
+    // Story(
+    //   images: [],
+    //   content: "http://192.168.68.124:3000",
+    //   type: "miniapp",
+    //   time: DateTime.now(),
+    //   title: "MiniApp",
+    // )
   ];
   int totalSize = 0;
   int start = 0;
-  int perPage = 10;
+  int perPage = 20;
 
   getStories(bool refresh) async {
     StoryProvider userProvider = Provider.of(context, listen: false);
@@ -50,7 +50,7 @@ class _StoryViewState extends State<StoryView> {
       firstRefresh: true,
       onRefresh: () async {
         start = 0;
-        // await getStories(true);
+        await getStories(true);
       },
       onLoad: start + perPage < totalSize
           ? () async {

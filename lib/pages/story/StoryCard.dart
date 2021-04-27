@@ -44,6 +44,7 @@ class StoryCard extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
+                fullscreenDialog: true,
                 builder: (c) => MiniApp(
                   story: story,
                 ),

@@ -35,7 +35,7 @@ class Story {
         content: json["content"],
         time: DateTime.parse(json["time"]),
         type: json["type"] ?? "text",
-        images: json['images'] ?? [],
+        images: [],
       );
 
   Map<String, dynamic> toJson() => {
@@ -43,6 +43,6 @@ class Story {
         "content": content,
         "time": time.toIso8601String(),
         "type": type,
-        "images": images,
+        // "images": images,
       };
 }
