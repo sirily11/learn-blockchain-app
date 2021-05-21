@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:learn_blockchain/pages/playgrounds/hash/HashPlayground.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class Utils {
   static Future<String> loadMarkdown(String path) async {
@@ -27,6 +28,7 @@ class Utils {
       var dio = Dio();
       final tmpPath = await getApplicationDocumentsDirectory();
       final savePath = p.join(tmpPath.toString(), p.basename(path));
+      var status = await Permission.storage.request();
       if (!await File(savePath).exists()) {
         await dio.download(path, savePath);
       }

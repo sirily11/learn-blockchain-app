@@ -30,12 +30,17 @@ const documentDataList = [
     "quizPath": "assets/quizzes/part1/quiz1.json",
     "documentData": [
       {
-        "path":
-            "https://notes.sirileepage.com/files/MSBD5017/Lecture2-Token-Money-Feb19-2021.pdf",
-        "source": "internet",
-        "type": "pdf",
-        "title": "Token Money"
+        "path": "assets/document/part1/decentralization.md",
+        "title": "Decentralization",
+        "source": "assets",
+        "type": "md",
       },
+      {
+        "path": "assets/document/part1/what_is_block_chain.md",
+        "title": "What is block chain",
+        "source": "assets",
+        "type": "md",
+      }
     ]
   },
   {
@@ -91,11 +96,17 @@ const documentDataList = [
     "quizPath": "assets/quizzes/part1/quiz1.json",
     "documentData": [
       {
-        "path": "assets/document/part2/difficulty.md",
+        "path": "assets/document/part1/decentralization.md",
         "title": "Decentralization",
         "source": "assets",
         "type": "md",
       },
+      {
+        "path": "assets/document/part1/what_is_block_chain.md",
+        "title": "What is block chain",
+        "source": "assets",
+        "type": "md",
+      }
     ]
   }
 ];

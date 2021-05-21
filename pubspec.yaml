@@ -40,6 +40,7 @@ dependencies:
   webview_flutter: ^2.0.4
   local_auth: ^1.1.5
   dio: 4.0.0-prev3
+  permission_handler: ^7.1.0
   web3dart: 
     git: https://github.com/simolus3/web3dart
   path: ^1.8.0
